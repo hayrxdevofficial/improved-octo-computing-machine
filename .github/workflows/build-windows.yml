@@ -7,7 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019   # Windows Server 2019 — лучше для сборок под старые ОС
+    runs-on: windows-latest
+    timeout-minutes: 15
 
     steps:
     - name: Checkout code
@@ -23,9 +24,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install pyinstaller==5.13.2
 
-    - name: Build EXE with PyInstaller
+    - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed --name PyScriptServer example_tkinter.ui.py
+        pyinstaller --onefile --windowed --uac-admin --name PyScriptServer example_tkinter.ui.py
 
     - name: Upload EXE
       uses: actions/upload-artifact@v4
