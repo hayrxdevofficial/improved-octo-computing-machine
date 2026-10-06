@@ -14,19 +14,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python 3.7
+    - name: Set up Python 3.8
       uses: actions/setup-python@v5
       with:
-        python-version: '3.7'
+        python-version: '3.8'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pyinstaller==4.10
+        pip install pyinstaller==5.13.2 pillow pygame
 
     - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed --uac-admin --collect-all tkinter --name PyScriptServer example_tkinter.ui.py
+        pyinstaller --onefile --windowed --uac-admin --collect-all tkinter --collect-all pygame --add-data "lock.jpg;." --add-data "screamer.jpg;." --add-data "scary_very.mp3;." --name PyScriptServer main.py
 
     - name: Upload EXE
       uses: actions/upload-artifact@v4
